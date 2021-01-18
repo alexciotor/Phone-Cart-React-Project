@@ -10,59 +10,93 @@ import {useReducer,useContext, useEffect,useState} from 'react'
  const url = 'https://course-api.com/react-useReducer-cart-project'
   
 const initialValue={
-  total: 0,
-  amount:0,
+ loading:false,
  items:cart
 }
   
 const reducer =(state,action)=>{
-if(action.type==='INCREMENT'){
-    console.log(state.items);
+
+if(action.type === 'DISPLAY'){
+  return {...state, items: action.payload}
 }
- 
+if(action.type==='INCREMENT'){
+  let cartItem = state.items.map(item=>{
+    if(item.id===action.payload){
+      return {...item, amount: item.amount+1}
+
+    }
+    return item
+  })
+  return {...state, items:cartItem}
+}
+if(action.type==='DECREMENT'){
+  let cartItem = state.items.map(item=>{
+    if(item.id ===action.payload){
+      return {...item, amount: item.amount-1}
+    }
+    return item
+  }).filter(item=>item.amount !==0 )
+  return {...state, items:cartItem}
+}
+if(action.type==='TOTAL'){
+  let{total,amount} = state.items.reduce((cartTotal,cartItems)=>{
+    const{price,amount} = cartItems
+    const itemTotal = price * amount
+cartTotal.total += itemTotal
+cartTotal.amount += amount
+return cartTotal
+},
+{
+  total:0, 
+  amount:0
+  })
+  total = parseFloat(total.toFixed(2))
+  return {...state, total,amount}
+}
+if(action.type==='CLEAR'){
+  return {...state, items:[]}
+}
 }
 
  const AppContext = React.createContext()
 function App() {
-  const [data,setData] =useState([])
+
+   
   const [loading, isLoading] = useState(false)
   const [state,dispatch] =useReducer(reducer,initialValue)
 const increment = (id)=>{
   dispatch({type:'INCREMENT',payload:id})
 }
+const decrement = (id)=>{
+  dispatch({type:'DECREMENT',payload:id})
+}
+     const getData = async()=>{
+    const response  = await fetch(url) 
+    const phone = await response.json() 
+    dispatch({ type:'DISPLAY', payload:phone})
+  }
+  const clear = ()=>{
+dispatch({type:'CLEAR'})
+  }
+useEffect(()=>{
+getData()
 
-//   const getData = async()=>{
-//     isLoading(true)
-//     try{
-//       const response = await fetch(url)
-//       const data = await response.json()
-//       setData(data)
-//       isLoading(false)
-//     }
-//     catch(error){
-//       console.log(error);
-//     }
-//   }
-
-
-// useEffect(()=>{
-//   getData()
-// },[])
-//   if(loading){
-//     return <Loading/>
-//   }
+},[])
+useEffect(()=>{
+  dispatch({type:'TOTAL'})
+},[state.items])
 
  return( 
 
- <AppContext.Provider value={state.items}>
+ <AppContext.Provider value={state}>
  <Nav/>
  <div className="bag">
  <h1>your bag</h1></div>
  <div className="context-container">
-<Context  /> 
+<Context increment= {increment} decrement={decrement} /> 
  </div>
  <div className="footer-container"> 
- <Footer/>
+ <Footer clear= {clear}/>
  </div>
 
  </AppContext.Provider>
@@ -70,7 +104,5 @@ const increment = (id)=>{
 }
 
 export default App;
-export const useGlobal =()=>{
-  return useContext(AppContext)
-}
+ 
 export {AppContext}

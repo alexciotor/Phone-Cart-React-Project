@@ -2,19 +2,14 @@ import { useContext } from "react"
 import {AppContext} from './App'
 import {FiArrowUp} from 'react-icons/fi'
 import {FiArrowDown} from 'react-icons/fi'
- import {useGlobal} from './App'
- console.log(useGlobal);
-const Context = ({increment})=>{
+ 
+const Context = ({increment,decrement})=>{
       const data = useContext(AppContext)
- console.log(data);
-
-
-
-
     return (
 <>
-{data.map((item,index)=>{
-    const {img,id,price,amount,title}=item
+{data.items.map(item=>{
+    const {img,id,price,title,amount}=item
+   
     return ( 
     <article key={id} className="article">
  <div className="left">
@@ -30,10 +25,12 @@ const Context = ({increment})=>{
  <div className="right">
  <div className="arrow-container">
  <FiArrowUp onClick={()=>{
-     increment()
- }}/>
+      increment(id)
+ }} />
  <p>{amount}</p>
- <FiArrowDown/>
+ <FiArrowDown onClick={()=>{
+     decrement(id)
+ }} />
  </div>
  </div>
 
