@@ -14,11 +14,10 @@ const Context = ({increment,decrement})=>{
     <article key={id} className="article">
  <div className="left">
  <header className="header">
- <img src={img} alt=""/>
+ <img src={img} alt={title}/>
  <div className="price">
  <h4>{title}</h4>
  <p>{price}</p>
- <button className="btn-remove">remove</button>
  </div>
  </header>
  </div>
