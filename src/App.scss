@@ -138,12 +138,11 @@ $mainBlue: #2680c0;
   }
 }
 button:hover {
-  background-color: #e17676;
 }
 @media only screen and (min-width: 375px) and (max-width: 767px) {
   .article {
     img {
-      width: 100px;
+      width: 50px;
     }
   }
 }
