@@ -67,7 +67,7 @@ $mainBlue: #2680c0;
   justify-content: space-between;
   .header {
     display: flex;
-    img {
+    .image {
       width: 100px;
     }
 
@@ -141,7 +141,7 @@ button:hover {
 }
 @media only screen and (min-width: 375px) and (max-width: 767px) {
   .article {
-    img {
+    .image {
       width: 50px;
     }
   }
