@@ -71,32 +71,32 @@ $mainBlue: #2680c0;
   justify-content: space-between;
   .header {
     display: flex;
-
-    .price {
-      h4,
-      p {
-        font-weight: 450;
-        letter-spacing: 2px;
-        font-size: 0.875rem;
-      }
-      p {
-        padding-top: 1vh;
-        color: #617d98;
-      }
-      h4 {
-        text-transform: capitalize;
-      }
-      .btn-remove {
-        color: $mainBlue;
-        border: none;
-        background-color: transparent;
-        letter-spacing: 4px;
-        font-size: 0.655rem;
-        cursor: pointer;
-      }
+  }
+  .price {
+    h4,
+    p {
+      font-weight: 450;
+      letter-spacing: 2px;
+      font-size: 0.875rem;
+    }
+    p {
+      padding-top: 1vh;
+      color: #617d98;
+    }
+    h4 {
+      text-transform: capitalize;
+    }
+    .btn-remove {
+      color: $mainBlue;
+      border: none;
+      background-color: transparent;
+      letter-spacing: 4px;
+      font-size: 0.655rem;
+      cursor: pointer;
     }
   }
 }
+
 .arrow-container {
   text-align: center;
   color: #2680c0;
