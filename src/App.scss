@@ -61,6 +61,7 @@ $mainBlue: #2680c0;
 }
 .image {
   width: 100px;
+  height: 100px;
 }
 .article {
   padding: 20px;
@@ -143,6 +144,7 @@ button:hover {
   .article {
     .image {
       width: 50px;
+      height: 50px;
     }
   }
 }
